@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple CRM</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white p-6">
+  <h1 class="text-3xl mb-4">CRM - Add Lead</h1>
+  <form id="leadForm" class="space-y-4">
+    <input type="text" id="name" placeholder="Lead Name" class="p-2 w-full text-black" />
+    <button type="submit" class="bg-green-600 px-4 py-2">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById("leadForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value;
+      const res = await fetch("http://localhost:8000/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name })
+      });
+      const data = await res.json();
+      alert("Lead submitted: " + JSON.stringify(data));
+    });
+  </script>
+</body>
+</html>
